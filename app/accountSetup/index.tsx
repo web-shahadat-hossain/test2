@@ -4,55 +4,55 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useEffect, useState } from 'react';
-import ContentWrapper from '@/components/contentwrapper';
-import Header from '@/components/header';
-import { moderateScale, verticalScale } from '@/utils/metrices';
-import ImagePickerExample from '@/components/imageUpload';
-import SimpleInput from '@/components/simpleInput';
-import DateInput from '@/components/dateInput';
-import PrimaryButton from '@/components/common/PrimaryButton';
-import { router, useLocalSearchParams } from 'expo-router';
-import DropdownPicker from '@/components/dropDown';
-import { Controller, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import Toast from 'react-native-toast-message';
-import { apiUrls } from '@/apis/apis';
-import usePutQuery from '@/hooks/put-query.hook';
-import useGetQuery from '@/hooks/get-query.hook';
-import Loader from '@/components/loader';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUser } from '@/redux/slices/userSlice';
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import ContentWrapper from "@/components/contentwrapper";
+import Header from "@/components/header";
+import { moderateScale, verticalScale } from "@/utils/metrices";
+import ImagePickerExample from "@/components/imageUpload";
+import SimpleInput from "@/components/simpleInput";
+import DateInput from "@/components/dateInput";
+import PrimaryButton from "@/components/common/PrimaryButton";
+import { router, useLocalSearchParams } from "expo-router";
+import DropdownPicker from "@/components/dropDown";
+import { Controller, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Toast from "react-native-toast-message";
+import { apiUrls } from "@/apis/apis";
+import usePutQuery from "@/hooks/put-query.hook";
+import useGetQuery from "@/hooks/get-query.hook";
+import Loader from "@/components/loader";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "@/redux/slices/userSlice";
 
 const flowOneSchema = yup.object({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup.string().email().required('Email is required'),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email().required("Email is required"),
   dob: yup.date(),
 });
 const flowTwoSchema = yup.object({
-  schoolName: yup.string().required('School name is required'),
-  gender: yup.string().required('Gender is required'),
-  stdId: yup.string().required('Standard is required'),
-  boardId: yup.string().required('Board is required'),
+  schoolName: yup.string().required("School name is required"),
+  gender: yup.string().required("Gender is required"),
+  stdId: yup.string().required("Standard is required"),
+  boardId: yup.string().required("Board is required"),
   learningGoal: yup.string().optional(),
   subject: yup
     .array()
     .of(yup.string())
-    .required('Subject is required')
-    .min(1, 'Subject is required'),
+    .required("Subject is required")
+    .min(1, "Subject is required"),
   activity: yup
     .array()
     .of(yup.string())
-    .required('Activity is required')
-    .min(1, 'Activity is required'),
+    .required("Activity is required")
+    .min(1, "Activity is required"),
 });
 
 const genderOptions = [
-  { label: 'Male', value: 'm' },
-  { label: 'Female', value: 'f' },
+  { label: "Male", value: "m" },
+  { label: "Female", value: "f" },
 ];
 
 const AccountSetup = () => {
@@ -130,8 +130,8 @@ const AccountSetup = () => {
     } = useForm({
       resolver: yupResolver(flowOneSchema),
       defaultValues: {
-        firstName: user?.name?.split(' ')?.[0],
-        lastName: user?.name?.split(' ')?.[1],
+        firstName: user?.name?.split(" ")?.[0],
+        lastName: user?.name?.split(" ")?.[1],
         email: user?.email,
       },
     });
@@ -140,12 +140,12 @@ const AccountSetup = () => {
       let postData = {};
       if (params?.heading) {
         postData = {
-          name: data.firstName + ' ' + data.lastName,
+          name: data.firstName + " " + data.lastName,
           email: data.email,
         };
       } else {
         postData = {
-          name: data.firstName + ' ' + data.lastName,
+          name: data.firstName + " " + data.lastName,
           email: data.email,
           dob: data.dob,
         };
@@ -159,8 +159,8 @@ const AccountSetup = () => {
         },
         onFail: (err: any) => {
           Toast.show({
-            type: 'error',
-            text1: err?.message || 'Something went wrong!',
+            type: "error",
+            text1: err?.message || "Something went wrong!",
           });
           console.log(err);
         },
@@ -171,7 +171,7 @@ const AccountSetup = () => {
       <View
         style={{
           flex: 1,
-          justifyContent: 'space-between',
+          justifyContent: "space-between",
         }}
       >
         <View>
@@ -236,7 +236,7 @@ const AccountSetup = () => {
             <Controller
               control={control}
               rules={{
-                required: 'Date of birth is required',
+                required: "Date of birth is required",
               }}
               render={({ field: { onChange, value } }) => (
                 <DateInput
@@ -253,7 +253,7 @@ const AccountSetup = () => {
         <PrimaryButton
           style={{ marginTop: moderateScale(20) }}
           onPress={handleSubmit(onSubmit)}
-          text={'Continue'}
+          text={"Continue"}
           isOutlined
         />
       </View>
@@ -268,8 +268,8 @@ const AccountSetup = () => {
     } = useForm({
       resolver: yupResolver(flowTwoSchema),
       defaultValues: {
-        schoolName: user?.schoolName || '',
-        gender: user?.gender || 'm',
+        schoolName: user?.schoolName || "",
+        gender: user?.gender || "m",
         stdId: user?.stdId,
         boardId: user?.boardId,
         learningGoal: user?.learningGoal,
@@ -283,16 +283,16 @@ const AccountSetup = () => {
         url: apiUrls.user.updateProfile,
         onSuccess: (res: any) => {
           handleUpdateProfile(res.data);
-          router.push('/(tabs)');
+          router.push("/(tabs)");
           Toast.show({
-            type: 'success',
-            text1: 'Profile updated successfully!',
+            type: "success",
+            text1: "Profile updated successfully!",
           });
         },
         onFail: (err: any) => {
           Toast.show({
-            type: 'error',
-            text1: err.message || 'Something went wrong!',
+            type: "error",
+            text1: err.message || "Something went wrong!",
           });
           console.log(err);
         },
@@ -304,7 +304,7 @@ const AccountSetup = () => {
         style={{
           flex: 1,
           paddingTop: moderateScale(20),
-          justifyContent: 'space-between',
+          justifyContent: "space-between",
         }}
       >
         <View>
@@ -338,7 +338,7 @@ const AccountSetup = () => {
                 <Text
                   style={{
                     fontSize: 12,
-                    color: 'red',
+                    color: "red",
                   }}
                 >
                   {errors.gender && errors.gender.message}
@@ -349,16 +349,16 @@ const AccountSetup = () => {
           />
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
               columnGap: moderateScale(16),
             }}
           >
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
-                <View style={{ flex: 1, flexDirection: 'column' }}>
+                <View style={{ flex: 1, flexDirection: "column" }}>
                   <DropdownPicker
                     options={standardOptions.map((standard) => ({
                       label: standard?.std,
@@ -371,7 +371,7 @@ const AccountSetup = () => {
                   <Text
                     style={{
                       fontSize: 12,
-                      color: 'red',
+                      color: "red",
                       marginTop: 5,
                     }}
                   >
@@ -385,7 +385,7 @@ const AccountSetup = () => {
             <Controller
               control={control}
               render={({ field: { onChange, value } }) => (
-                <View View style={{ flex: 1, flexDirection: 'column' }}>
+                <View View style={{ flex: 1, flexDirection: "column" }}>
                   <DropdownPicker
                     options={boardOptions.map((board) => ({
                       label: board?.boardname,
@@ -399,7 +399,7 @@ const AccountSetup = () => {
                   <Text
                     style={{
                       fontSize: 12,
-                      color: 'red',
+                      color: "red",
                       marginTop: 5,
                     }}
                   >
@@ -443,7 +443,7 @@ const AccountSetup = () => {
                 <Text
                   style={{
                     fontSize: 12,
-                    color: 'red',
+                    color: "red",
                   }}
                 >
                   {errors.subject && errors.subject.message}
@@ -470,7 +470,7 @@ const AccountSetup = () => {
                 <Text
                   style={{
                     fontSize: 12,
-                    color: 'red',
+                    color: "red",
                   }}
                 >
                   {errors.activity && errors.activity.message}
@@ -482,7 +482,7 @@ const AccountSetup = () => {
         </View>
         <PrimaryButton
           onPress={handleSubmit(onFlowTwoSubmit)}
-          text={'Continue'}
+          text={"Continue"}
           isOutlined
         />
       </View>
@@ -493,12 +493,12 @@ const AccountSetup = () => {
     <ContentWrapper>
       <Loader visible={loading || getLoading} />
       <Header
-        heading={params?.heading || 'Account Setup'}
+        heading={params?.heading || "Account Setup"}
         showLeft
         renderRight={() => (
           <Text
             onPress={
-              active === 0 ? () => setActive(1) : () => router.push('/(tabs)')
+              active === 0 ? () => setActive(1) : () => router.push("/(tabs)")
             }
           >
             Skip
@@ -530,41 +530,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: moderateScale(24),
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingBottom: verticalScale(20),
   },
   barContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     columnGap: moderateScale(4),
   },
   barOne: {
     flex: 1,
     height: 4,
-    backgroundColor: '#387ADE',
+    backgroundColor: "#387ADE",
     borderRadius: moderateScale(12),
   },
   barTwo: {
     flex: 1,
     height: 4,
-    backgroundColor: '#E2E8F0',
+    backgroundColor: "#E2E8F0",
     borderRadius: moderateScale(12),
   },
   barTwoActive: {
     flex: 1,
     height: 4,
-    backgroundColor: '#387ADE',
+    backgroundColor: "#387ADE",
     borderRadius: moderateScale(12),
   },
   imageUploadContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: verticalScale(20),
   },
   formContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     columnGap: moderateScale(16),
     marginTop: verticalScale(44),
   },

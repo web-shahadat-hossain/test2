@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   View,
@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-} from 'react-native';
-import { boolean, string } from 'yup';
+} from "react-native";
+import { boolean, string } from "yup";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 type ReferModalProps = {
   visible: boolean;
@@ -27,7 +27,7 @@ const ReferModal = ({
   onSubmit,
   setReferCode,
   onSkip,
-  referCode = '',
+  referCode = "",
 }: ReferModalProps) => {
   const [inputValue, setInputValue] = useState(referCode);
 
@@ -57,8 +57,8 @@ const ReferModal = ({
           />
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              flexDirection: "row",
+              justifyContent: "space-between",
               columnGap: 20,
             }}
           >
@@ -78,51 +78,51 @@ const ReferModal = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContainer: {
     width: width * 0.8,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: height * 0.7,
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   skip: {
-    fontSize: 12,
-    color: 'black',
-    fontWeight: 'bold',
+    fontSize: 18,
+    color: "black",
+    fontWeight: "bold",
   },
   skipButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 1,
     right: 20,
   },
   input: {
-    width: '100%',
+    width: "100%",
     height: 40,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: "#007bff",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
   },
   buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

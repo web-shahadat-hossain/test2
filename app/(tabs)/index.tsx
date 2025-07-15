@@ -1,12 +1,12 @@
-import ContentWrapper from '@/components/contentwrapper';
-import SimpleInput from '@/components/simpleInput';
-import { Colors } from '@/constants/Colors';
-import { horizontalScale, moderateScale } from '@/utils/metrices';
-import { Entypo, Feather } from '@expo/vector-icons';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import EvilIcons from '@expo/vector-icons/EvilIcons';
+import ContentWrapper from "@/components/contentwrapper";
+import SimpleInput from "@/components/simpleInput";
+import { Colors } from "@/constants/Colors";
+import { horizontalScale, moderateScale } from "@/utils/metrices";
+import { Entypo, Feather } from "@expo/vector-icons";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 import {
   View,
   Text,
@@ -17,41 +17,41 @@ import {
   ImageBackground,
   FlatList,
   RefreshControl,
-} from 'react-native';
-import { Link, router } from 'expo-router';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import * as Progress from 'react-native-progress';
-import PrimaryButton from '@/components/common/PrimaryButton';
-import { getItem } from '@/utils/asyncStorage';
-import SimilarCourse from '@/components/courseCard';
-import useGetQuery from '@/hooks/get-query.hook';
-import { apiUrls } from '@/apis/apis';
-import { useSelector } from 'react-redux';
-import moment from 'moment';
-import { useFocusEffect } from '@react-navigation/native';
-import usePostQuery from '@/hooks/post-query.hook';
+} from "react-native";
+import { Link, router } from "expo-router";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import * as Progress from "react-native-progress";
+import PrimaryButton from "@/components/common/PrimaryButton";
+import { getItem } from "@/utils/asyncStorage";
+import SimilarCourse from "@/components/courseCard"; // Assuming this is your course card component
+import useGetQuery from "@/hooks/get-query.hook";
+import { apiUrls } from "@/apis/apis";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import { useFocusEffect } from "@react-navigation/native";
+import usePostQuery from "@/hooks/post-query.hook";
 
 const courses = [
   {
-    id: '1',
-    title: 'UI/UX Design Course',
-    description: 'Learn the basics of UI/UX design.',
+    id: "1",
+    title: "UI/UX Design Course",
+    description: "Learn the basics of UI/UX design.",
     image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbBGQSufAjHBUgz031Z_c0--Qxs0jcxQGU4DXwkKOgttjPm56mbptJxoePkVtG665Oaxg&usqp=CAU',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbBGQSufAjHBUgz031Z_c0--Qxs0jcxQGU4DXwkKOgttjPm56mbptJxoePkVtG665Oaxg&usqp=CAU",
   },
   {
-    id: '2',
-    title: 'Web Development',
-    description: 'Become a full-stack developer.',
+    id: "2",
+    title: "Web Development",
+    description: "Become a full-stack developer.",
     image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbBGQSufAjHBUgz031Z_c0--Qxs0jcxQGU4DXwkKOgttjPm56mbptJxoePkVtG665Oaxg&usqp=CAU',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbBGQSufAjHBUgz031Z_c0--Qxs0jcxQGU4DXwkKOgttjPm56mbptJxoePkVtG665Oaxg&usqp=CAU",
   },
   {
-    id: '3',
-    title: 'Data Science',
-    description: 'Master data analysis and machine learning.',
+    id: "3",
+    title: "Data Science",
+    description: "Master data analysis and machine learning.",
     image:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbBGQSufAjHBUgz031Z_c0--Qxs0jcxQGU4DXwkKOgttjPm56mbptJxoePkVtG665Oaxg&usqp=CAU',
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbBGQSufAjHBUgz031Z_c0--Qxs0jcxQGU4DXwkKOgttjPm56mbptJxoePkVtG665Oaxg&usqp=CAU",
   },
 ];
 
@@ -59,7 +59,8 @@ const HomeScreen = () => {
   const { user } = useSelector((state) => state.user);
 
   const tabBarHeight = useBottomTabBarHeight();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
+  // Initialize filteredCourses with all courses so they show by default
   const [filteredCourses, setFilteredCourses] = useState(courses);
   const [isProfileComplete, setIsProfileComplete] = useState(true);
   const { getQuery, loading, data } = useGetQuery();
@@ -67,8 +68,8 @@ const HomeScreen = () => {
   // Function to handle search
   const handleSearch = (text) => {
     setSearchQuery(text);
-    if (text.trim() === '') {
-      setFilteredCourses(courses);
+    if (text.trim() === "") {
+      setFilteredCourses(courses); // Show all courses if search bar is empty
     } else {
       const filtered = courses.filter((course) =>
         course.title.toLowerCase().includes(text.toLowerCase())
@@ -79,7 +80,7 @@ const HomeScreen = () => {
 
   // Function to handle the "Your Progress" view
   const handleCrossClick = () => {
-    setIsProfileComplete(false); // Show the "Your Progress" view
+    setIsProfileComplete(false);
   };
 
   const [refreshing, setRefreshing] = React.useState(false);
@@ -122,7 +123,7 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcomeText}>
-              Welcome {user?.user?.name || user?.name || 'Jhon Doe'}! 👍
+              Welcome {user?.user?.name || user?.name || "Jhon Doe"}! 👍
             </Text>
             <FontAwesome
               style={styles.bellIcon}
@@ -146,7 +147,7 @@ const HomeScreen = () => {
           showsVerticalScrollIndicator={false}
           refreshControl={<RefreshControl refreshing={refreshing} />}
         >
-          {/* complete profile  conditionally render */}
+          {/* complete profile conditionally render */}
           {isProfileComplete ? (
             // Complete Profile View
             <View style={styles.profileSection}>
@@ -202,7 +203,7 @@ const HomeScreen = () => {
                   <Progress.Bar
                     style={{
                       marginTop: 10,
-                      backgroundColor: 'white',
+                      backgroundColor: "white",
                       borderRadius: 10,
                     }}
                     borderRadius={10}
@@ -240,9 +241,11 @@ const HomeScreen = () => {
               <Text style={styles.sectionTitle}>Recommended for You</Text>
               <Text style={styles.viewAllText}>View all</Text>
             </View>
+            {/* THIS IS THE KEY CHANGE: Pass filteredCourses to SimilarCourse */}
             <SimilarCourse
-              onPress={() => router.push('/courses')}
-              emptyMessage={'No Courses Found'}
+              data={filteredCourses}
+              onPress={() => router.push("/courses")}
+              emptyMessage={"No Courses Found"}
             />
           </View>
         </ScrollView>
@@ -254,30 +257,30 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: "#F8F8F8",
   },
   header: {
     padding: 20,
     paddingBottom: 5,
   },
   welcomeContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: moderateScale(30),
   },
   welcomeText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   bellIcon: {
-    backgroundColor: '#EAEAEA',
+    backgroundColor: "#EAEAEA",
     padding: 10,
     borderRadius: 50,
   },
 
   searchContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   searchInput: {
     marginTop: 10,
@@ -287,12 +290,12 @@ const styles = StyleSheet.create({
   cross: {
     top: -10,
     right: 1,
-    position: 'absolute',
+    position: "absolute",
     padding: 1,
     borderRadius: 50,
   },
   crossIcon: {
-    backgroundColor: '#cbd5e1',
+    backgroundColor: "#cbd5e1",
     borderRadius: 50,
   },
   profileSection: {
@@ -308,23 +311,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   completeProfileContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   studyContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     columnGap: 10,
   },
   seeAllText: {
     color: Colors.primary,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   studyTitle: {
     color: Colors.white,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   minText: {
     color: Colors.white,
@@ -332,24 +335,24 @@ const styles = StyleSheet.create({
   detailsText: {
     color: Colors.placeholder,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   viewAllText: {
     color: Colors.placeholder,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   progressTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     margin: 15,
   },
   continueButton: {
     marginTop: 20,
-    width: '100%',
+    width: "100%",
     backgroundColor: Colors.white,
   },
   playIcon: {
@@ -361,7 +364,7 @@ const styles = StyleSheet.create({
   offerTittle: {
     color: Colors.white,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   profileDescription: {
     color: Colors.placeholder,
@@ -369,20 +372,20 @@ const styles = StyleSheet.create({
   dashDivider: {
     borderTopWidth: 10,
     borderColor: Colors.primary,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderRadius: 8,
     marginVertical: 10,
   },
   offerSection: {
     margin: 15,
     borderRadius: 10,
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
     height: 150,
   },
 
   discountBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     left: 10,
     backgroundColor: Colors.white,
@@ -390,17 +393,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   discountText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   offerContent: {
     padding: 10,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
   },
   offerText: {
-    color: '#fff',
-    textAlign: 'center',
+    color: "#fff",
+    textAlign: "center",
     marginTop: 10,
   },
   section: {
@@ -408,7 +411,7 @@ const styles = StyleSheet.create({
   },
   courseCard: {
     marginTop: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 10,
     borderRadius: 10,
   },

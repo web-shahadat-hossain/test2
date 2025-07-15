@@ -5,21 +5,21 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useEffect, useState } from 'react';
-import ContentWrapper from '@/components/contentwrapper';
-import SimpleInput from '@/components/simpleInput';
-import { AntDesign, Feather } from '@expo/vector-icons';
-import { Colors } from '@/constants/Colors';
-import { horizontalScale, moderateScale } from '@/utils/metrices';
-import { Link, router } from 'expo-router';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import SimilarCourse from '@/components/courseCard';
-import { apiUrls } from '@/apis/apis';
-import useGetQuery from '@/hooks/get-query.hook';
+} from "react-native";
+import React, { useEffect, useState } from "react";
+import ContentWrapper from "@/components/contentwrapper";
+import SimpleInput from "@/components/simpleInput";
+import { AntDesign, Feather } from "@expo/vector-icons";
+import { Colors } from "@/constants/Colors";
+import { horizontalScale, moderateScale } from "@/utils/metrices";
+import { Link, router } from "expo-router";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import SimilarCourse from "@/components/courseCard";
+import { apiUrls } from "@/apis/apis";
+import useGetQuery from "@/hooks/get-query.hook";
 
 const Courses = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const tabBarHeight = useBottomTabBarHeight();
   const { getQuery, loading, data } = useGetQuery();
 
@@ -38,7 +38,7 @@ const Courses = () => {
           height: moderateScale(120),
           borderRadius: 16,
           marginLeft: 15,
-          overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         <ImageBackground
@@ -77,7 +77,7 @@ const Courses = () => {
           />
         </View>
 
-        {/* Categories */}
+        {/* Categories 
         <View style={styles.categories}>
           <TouchableOpacity style={styles.categoryActive}>
             <Text style={styles.categoryText}>All</Text>
@@ -92,16 +92,16 @@ const Courses = () => {
             <Text style={styles.categoryText}>GUJCET</Text>
           </TouchableOpacity>
         </View>
-
+      */}
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* Courses */}
-          <View style={styles.section}>
+          {/* <View style={styles.section}>
             <TouchableOpacity
-              onPress={() => router.push('/selectCourse')}
+              onPress={() => router.push("/selectCourse")}
               style={styles.courseCard}
             >
               <ImageBackground
-                source={require('../../assets/images/course.jpg')}
+                source={require("../../assets/images/course.jpg")}
                 style={styles.courseImage}
               />
               <View style={styles.newCourseBadge}>
@@ -120,7 +120,7 @@ const Courses = () => {
               </Text>
               <Text style={styles.priceText}>$ 150.00</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           {/* Recommended screen */}
           <View style={styles.section}>
             <View style={styles.completeProfileContainer}>
@@ -153,7 +153,7 @@ const Courses = () => {
           </View>
 
           {/* Recommended for You */}
-          <View style={styles.section}>
+          {/* <View style={styles.section}>
             <View style={styles.completeProfileContainer}>
               <Text style={styles.sectionTitle}>Recommended for You</Text>
               <Text style={styles.viewAllText}>View all</Text>
@@ -162,7 +162,7 @@ const Courses = () => {
               screenName="courses"
               emptyMessage="No courses found"
             />
-          </View>
+          </View> */}
         </ScrollView>
       </View>
     </ContentWrapper>
@@ -174,7 +174,7 @@ export default Courses;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: "#f1f5f9",
     // padding: 20,
   },
   header: {
@@ -182,14 +182,14 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   welcomeContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginTop: moderateScale(20),
   },
   welcomeText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   searchInput: {
@@ -199,9 +199,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   categories: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 10,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     margin: 15,
   },
   category: {
@@ -211,11 +211,11 @@ const styles = StyleSheet.create({
     marginRight: 5,
     borderColor: Colors.placeholder,
     borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   categoryActive: {
-    backgroundColor: '#1E88E5',
+    backgroundColor: "#1E88E5",
     padding: 10,
     borderRadius: 10,
     marginRight: 5,
@@ -223,25 +223,25 @@ const styles = StyleSheet.create({
   categoryText: {
     color: Colors.placeholder,
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   section: {
     margin: 15,
   },
   courseCard: {
     marginTop: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     padding: 10,
     borderRadius: 10,
   },
   courseImage: {
-    width: '100%',
+    width: "100%",
     height: 150,
     borderRadius: 20,
   },
   courseTitle: {
     fontSize: 20,
-    fontWeight: 'semibold',
+    fontWeight: "semibold",
     color: Colors.black,
     marginTop: 10,
   },
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     color: Colors.placeholder,
   },
   newCourseBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     left: 20,
     backgroundColor: Colors.primary,
@@ -257,63 +257,63 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   newCourseText: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
   },
   completeProfileContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   viewAllText: {
     color: Colors.placeholder,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   starIcon: {
-    color: '#D97706',
+    color: "#D97706",
   },
   priceText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     color: Colors.black,
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   bookmarkContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginLeft: horizontalScale(275),
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
   },
   offerSection: {
     borderRadius: 10,
-    overflow: 'hidden',
-    position: 'relative',
-    height: '100%',
-    flexDirection: 'column',
-    width: '100%',
+    overflow: "hidden",
+    position: "relative",
+    height: "100%",
+    flexDirection: "column",
+    width: "100%",
   },
   offerContent: {
     padding: 10,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    overflow: 'hidden',
-    width: '100%',
+    overflow: "hidden",
+    width: "100%",
   },
   offerTittle: {
     color: Colors.white,
     fontSize: 12,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
 
   mentor: {
-    width: '100%',
+    width: "100%",
     marginTop: 15,
   },
 });

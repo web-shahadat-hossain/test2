@@ -1,9 +1,9 @@
-import { Colors } from '@/constants/Colors';
+import { Colors } from "@/constants/Colors";
 // import { horizontalScale, moderateScale } from '@/utils/metrices';
-import { Entypo, Feather } from '@expo/vector-icons';
-import React, { useEffect, useState } from 'react';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { Entypo, Feather } from "@expo/vector-icons";
+import React, { useEffect, useState } from "react";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import EvilIcons from "@expo/vector-icons/EvilIcons";
 import {
   View,
   Text,
@@ -12,20 +12,20 @@ import {
   ImageBackground,
   FlatList,
   ActivityIndicator,
-} from 'react-native';
-import usePostQuery from '@/hooks/post-query.hook';
-import { apiUrls } from '@/apis/apis';
-import { router } from 'expo-router';
-import { useSelector } from 'react-redux';
+} from "react-native";
+import usePostQuery from "@/hooks/post-query.hook";
+import { apiUrls } from "@/apis/apis";
+import { router } from "expo-router";
+import { useSelector } from "react-redux";
 
 const SimilarCourse = ({
-  screenName = 'home',
+  screenName = "home",
   showRecommended = false,
   showSimiller = false,
-  courseId = '',
-  subjectId = '',
-  keyword = '',
-  emptyMessage = 'Empty list',
+  courseId = "",
+  subjectId = "",
+  keyword = "",
+  emptyMessage = "Empty list",
 }: any) => {
   const [courses, setCourses] = useState<any[]>([]);
   const { postQuery, loading } = usePostQuery();
@@ -37,21 +37,21 @@ const SimilarCourse = ({
     postQuery({
       url: apiUrls.course.getCourseList,
       onSuccess: (res: any) => {
-        console.log('Fetched Courses:', res.data);
+        console.log("Fetched Courses:", res.data);
         setCourses(res.data || []);
         setRefreshing(false);
       },
       onFail: (err: any) => {
-        console.error('Error fetching courses:', err);
+        console.error("Error fetching courses:", err);
         setRefreshing(false); // Hide refresh indicator even on failure
       },
       postData: {
         page: 1,
         search: keyword,
-        subjectId: subjectId || '', // optional - filter
-        standardId: user?.stdId || '', // optional - filter
-        type: showRecommended ? 'R' : showSimiller ? 'S' : '', // 'R' for recomended and 'S' for similar course
-        courseId: showSimiller ? courseId : '', // courseId mandedary for similar course
+        subjectId: subjectId || "", // optional - filter
+        standardId: user?.stdId || "", // optional - filter
+        type: showRecommended ? "R" : showSimiller ? "S" : "", // 'R' for recomended and 'S' for similar course
+        courseId: showSimiller ? courseId : "", // courseId mandedary for similar course
       }, // No token, no extra data needed
     });
   };
@@ -61,9 +61,9 @@ const SimilarCourse = ({
   }, [keyword]);
 
   const handlePress = (id) => {
-    if (screenName == 'home') {
+    if (screenName == "home") {
       router.push(`/courses`);
-    } else if (screenName == 'courses') {
+    } else if (screenName == "courses") {
       router.push({ pathname: `/selectCourse`, params: { id: id } });
     }
   };
@@ -75,7 +75,7 @@ const SimilarCourse = ({
         onPress={() => handlePress(item._id)}
       >
         <ImageBackground
-          source={{ uri: item.thumbnail || 'https://via.placeholder.com/300' }}
+          source={{ uri: item.thumbnail || "https://via.placeholder.com/300" }}
           style={styles.courseImage}
         />
         <View style={styles.newCourseBadge}>
@@ -88,36 +88,36 @@ const SimilarCourse = ({
         >
           <View style={styles.completeProfileContainer}>
             <Text style={styles.courseTitle}>
-              {item.title || 'Course Title'}
+              {item.title || "Course Title"}
             </Text>
             <View style={styles.ratingContainer}>
-              <Text style={styles.viewAllText}>{item.rating || '4.5'}</Text>
+              <Text style={styles.viewAllText}>{item.rating || "4.5"}</Text>
               <AntDesign style={styles.starIcon} name="star" size={18} />
             </View>
           </View>
           <Text style={styles.courseDescription}>
-            {item.description || 'No description available.'}
+            {item.description || "No description available."}
           </Text>
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
             <View
               style={{
-                flexDirection: 'row',
+                flexDirection: "row",
                 // justifyContent: 'space-between',
                 columnGap: 10,
-                alignItems: 'center',
+                alignItems: "center",
               }}
             >
               <Entypo name="back-in-time" size={24} color="black" />
               <Text
                 style={{
                   fontSize: 12,
-                  fontWeight: '500',
+                  fontWeight: "500",
                   color: Colors.placeholder,
                 }}
               >
@@ -165,55 +165,55 @@ const SimilarCourse = ({
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 10 },
-  errorText: { color: 'red', textAlign: 'center', marginTop: 20 },
-  starIcon: { color: '#D97706' },
+  errorText: { color: "red", textAlign: "center", marginTop: 20 },
+  starIcon: { color: "#D97706" },
   completeProfileContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  viewAllText: { color: Colors.placeholder, fontWeight: 'bold' },
+  viewAllText: { color: Colors.placeholder, fontWeight: "bold" },
   newCourseBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     left: 10,
     backgroundColor: Colors.primary,
     padding: 5,
     borderRadius: 10,
   },
-  newCourseText: { fontWeight: 'bold' },
-  ratingContainer: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  newCourseText: { fontWeight: "bold" },
+  ratingContainer: { flexDirection: "row", alignItems: "center", gap: 5 },
   bookmarkContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     // justifyContent: 'space-between',
     paddingHorizontal: 10,
     marginTop: 5,
   },
   courseCard: {
     width: 320,
-    backgroundColor: '#FFFFFF',
-    overflow: 'hidden',
+    backgroundColor: "#FFFFFF",
+    overflow: "hidden",
     // padding: 10,
     borderRadius: 10,
     marginBottom: 10,
     elevation: 3,
   },
-  courseImage: { width: '100%', height: 150, borderRadius: 20 },
+  courseImage: { width: "100%", height: 150, borderRadius: 20 },
   courseTitle: {
     fontSize: 18,
-    fontWeight: '600',
+    fontWeight: "600",
     color: Colors.black,
     marginTop: 5,
   },
   courseDescription: { color: Colors.placeholder },
   emptyListContainer: {
     minWidth: 340,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   emptyListText: {
     color: Colors.placeholder,
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
